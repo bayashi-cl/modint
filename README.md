@@ -14,24 +14,25 @@
 [Educational DP Contest H - Grid 1](https://atcoder.jp/contests/dp/tasks/dp_h)
 
 ```py
-from modint.modint import ModInt
+from modint import UsingModInt
 
-ModInt.set_mod(1000000007)
+MOD = 1000000007
 h, w = map(int, input().split())
 a = [input() for _ in range(h)]
 
-dp = [[ModInt()] * w for _ in range(h)]
-dp[0][0] = ModInt(1)
+Mint = UsingModInt(MOD)
+dp = [[Mint()] * w for _ in range(h)]
+dp[0][0] = Mint(1)
 for i in range(h):
     for j in range(w):
         if a[i][j] == "#":
             continue
-        if i + 1 != h and a[i + 1][j] == ".":
-            dp[i + 1][j] += dp[i][j]
-        if j + 1 != w and a[i][j + 1] == ".":
-            dp[i][j + 1] += dp[i][j]
+        if i != 0:
+            dp[i][j] += dp[i - 1][j]
+        if j != 0:
+            dp[i][j] += dp[i][j - 1]
 
-print(dp[-1][-1].value)
+print(dp[-1][-1])
 
 ```
 

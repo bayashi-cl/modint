@@ -21,6 +21,9 @@ class EDPC_H(NamedTuple):
     a: list[str]
     answer: int
 
+    def __repr__(self) -> str:
+        return f"EDPC_H(MOD={self.MOD}, h={self.h}, w={self.w})"
+
 
 def gen_empty_case(h: int, w: int, mod: int) -> EDPC_H:
     return EDPC_H(
@@ -34,7 +37,7 @@ def gen_empty_case(h: int, w: int, mod: int) -> EDPC_H:
 
 edpc_h_cases = [
     gen_empty_case(1000, 1000, 1000000007),
-    # gen_empty_case(20, 10, 1000000007),
+    gen_empty_case(20, 10, 1000000007),
 ]
 
 

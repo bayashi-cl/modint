@@ -2,10 +2,13 @@
 
 import pytest
 
-from modint.modint import ModInt
+from modint import UsingModInt
 from modint.modint_pure import using_modint
 
-modintP = using_modint(998244353)
+MOD = 998244353
+
+modintP = using_modint(MOD)
+Mint = UsingModInt(MOD)
 
 
 class TestPure:
@@ -63,35 +66,35 @@ class TestPure:
 
 class TestCExt:
     def test_init(self) -> None:
-        a = ModInt()
-        a = ModInt(5)
+        a = Mint()
+        a = Mint(5)
 
     def test_property(self) -> None:
-        a = ModInt(4)
+        a = Mint(4)
         assert a.value == 4
 
         with pytest.raises(AttributeError):
             a.value = 10  # type:ignore
 
     def test_add(self) -> None:
-        a = ModInt(3)
-        b = ModInt(4)
+        a = Mint(3)
+        b = Mint(4)
         c = a + b
         assert c.value == 7
 
     def test_iadd(self) -> None:
-        a = ModInt(3)
-        b = ModInt(4)
+        a = Mint(3)
+        b = Mint(4)
         a += b
         assert a.value == 7
 
     def test_add_int(self) -> None:
-        a = ModInt(3)
+        a = Mint(3)
         b = a + 4
         assert b.value == 7
 
     def test_immutable(self) -> None:
-        l = [ModInt()] * 2
+        l = [Mint()] * 2
         assert id(l[0]) == id(l[1])
         l[0] += 5
         assert id(l[0]) != id(l[1])

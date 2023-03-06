@@ -1,4 +1,10 @@
+import ctypes
+import sys
+
 from setuptools import Extension, find_packages, setup
+
+if ctypes.sizeof(ctypes.c_long) != 8:
+    sys.exit(-1)
 
 setup(
     name="modint",
@@ -24,8 +30,8 @@ setup(
     },
     ext_modules=[
         Extension(
-            "modint.modint",
-            ["src/modint/modint.cpp"],
+            "modint._modint",
+            ["src/modint/_modint.cpp"],
             extra_compile_args=["-std=c++2a"],
         ),
     ],

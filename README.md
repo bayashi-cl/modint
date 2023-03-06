@@ -34,3 +34,6 @@ for i in range(h):
 print(dp[-1][-1].value)
 
 ```
+
+## 動作環境
+* long型のサイズが8byte(=64ビット環境)であること。

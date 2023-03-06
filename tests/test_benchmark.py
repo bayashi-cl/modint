@@ -6,6 +6,8 @@ from .problem import EDPC_H, edpc_h_cases
 def cext(*, MOD: int, h: int, w: int, a: list[str], **kwargs):
     from modint.modint import ModInt
 
+    ModInt.set_mod(MOD)
+
     dp = [[ModInt()] * w for _ in range(h)]
     dp[0][0] = ModInt(1)
     for i in range(h):
@@ -20,11 +22,10 @@ def cext(*, MOD: int, h: int, w: int, a: list[str], **kwargs):
     return dp[-1][-1].value
 
 
-def cext_subclass(*, MOD: int, h: int, w: int, a: list[str], **kwargs):
-    from modint.modint import ModInt
+def cext_multi(*, MOD: int, h: int, w: int, a: list[str], **kwargs):
+    from modint.modint_multi import UsingModInt
 
-    class mint(ModInt):
-        pass
+    mint = UsingModInt(MOD)
 
     dp = [[mint()] * w for _ in range(h)]
     dp[0][0] = mint(1)
@@ -88,7 +89,7 @@ def idfun(val):
     "solver",
     [
         cext,
-        cext_subclass,
+        cext_multi,
         pure_hand,
         # pure_class,
     ],

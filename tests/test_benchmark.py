@@ -4,31 +4,12 @@ from .problem import EDPC_H, edpc_h_cases
 
 
 def cext(*, MOD: int, h: int, w: int, a: list[str], **kwargs):
-    from modint.modint import ModInt
+    from modint import UsingModInt
 
-    ModInt.set_mod(MOD)
+    Mint = UsingModInt(MOD)
 
-    dp = [[ModInt()] * w for _ in range(h)]
-    dp[0][0] = ModInt(1)
-    for i in range(h):
-        for j in range(w):
-            if a[i][j] == "#":
-                continue
-            if i + 1 != h and a[i + 1][j] == ".":
-                dp[i + 1][j] += dp[i][j]
-            if j + 1 != w and a[i][j + 1] == ".":
-                dp[i][j + 1] += dp[i][j]
-
-    return dp[-1][-1].value
-
-
-def cext_multi(*, MOD: int, h: int, w: int, a: list[str], **kwargs):
-    from modint.modint_multi import UsingModInt
-
-    mint = UsingModInt(MOD)
-
-    dp = [[mint()] * w for _ in range(h)]
-    dp[0][0] = mint(1)
+    dp = [[Mint()] * w for _ in range(h)]
+    dp[0][0] = Mint(1)
     for i in range(h):
         for j in range(w):
             if a[i][j] == "#":
@@ -89,9 +70,8 @@ def idfun(val):
     "solver",
     [
         cext,
-        cext_multi,
         pure_hand,
-        # pure_class,
+        pure_class,
     ],
 )
 def test_benchmark(benchmark, solver, testcase: EDPC_H) -> None:
